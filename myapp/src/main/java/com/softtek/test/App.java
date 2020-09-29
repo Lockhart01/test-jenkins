@@ -5,7 +5,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println("Hello from github mateys");
+        System.out.println("Ahoy mateys");
         DateTime  date =  new DateTime();
         System.out.println("the date is: " + date);
     }
