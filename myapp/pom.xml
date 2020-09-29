@@ -20,6 +20,10 @@
       <version>2.10.4</version>
     </dependency>
   </dependencies>
+  <properties>
+    <jar.finalName>${project.name}</jar.finalName>
+  </properties>
+
   <build>
 		<plugins>
       <plugin>
