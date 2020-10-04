@@ -23,7 +23,7 @@ pipeline{
                 expression { env.BRANCH_NAME == "dev" }
             }
             steps{
-                sh "if you can see this, it means i was triggered from dev branch"
+                sh '"if you can see this, it means i was triggered from dev branch"'
             }
         }
         stage('storage'){
