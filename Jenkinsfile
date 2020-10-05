@@ -12,6 +12,7 @@ pipeline{
 
 	    	sh 'export VERSION=$(($RANDOM%10))'
 		sh 'export NAME=$(date -I)'
+		sh 'env'
 
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
                 echo "${env.BRANCH_NAME}"
