@@ -12,14 +12,15 @@ pipeline{
 				Date date = new Date()
 				env.NAME= date.format("yyyyMMdd")
 			}
-			post{
+			
+		}
+		post{
 				always{
 					script{
 						currentBuild.displayName = "myapp-${NAME}"
 					}
 				}
 			}
-		}
 	    }
         stage('Build'){
             agent{
