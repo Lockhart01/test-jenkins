@@ -4,7 +4,7 @@
   <groupId>com.softtek.test</groupId>
   <artifactId>myapp</artifactId>
   <packaging>jar</packaging>
-  <version>1.${VERSION}</version>
+  <version>1.0</version>
   <name>myapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
