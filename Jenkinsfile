@@ -9,8 +9,11 @@ pipeline{
                 label 'slave'
             }
             steps{
+<<<<<<< HEAD
 	    	sh 'export VERSION=$(($RANDOM%10))'
 		sh 'export NAME=$(date "+%Y-%m-%d")
+=======
+>>>>>>> a617d2c05be189819cf0c4382e774f9d8cbbfc83
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
                 echo "${env.BRANCH_NAME}"
                 sh 'cd myapp && mvn clean package'
