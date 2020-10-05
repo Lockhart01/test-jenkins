@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('Build'){
             agent{
-                label 'node2'
+                label 'slave'
             }
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
@@ -17,7 +17,7 @@ pipeline{
         }
         stage('dev only'){
             agent{
-                label 'docker'
+                label 'slave'
             }
             when{
                 expression { env.BRANCH_NAME == "dev" }
@@ -27,9 +27,6 @@ pipeline{
             }
         }
         stage('storage'){
-            agent{
-                label 'docker'
-            }
             steps{
                 unstash 'app'
                 archiveArtifacts artifacts: 'myapp/target/*.jar', followSymlinks: false
