@@ -4,15 +4,28 @@ pipeline{
         maven 'M3'
     }
     stages{
+	stage('Prepare'){
+		steps{
+			script{
+				Random rnd = new Random()
+				env.VERSION= rnd.nextInt(10)
+				Date date = new Date()
+				env.NAME= date.format("yyyyMMdd")
+			}
+			post{
+				always{
+					script{
+						currentBuild.displayName = "myapp-${NAME}"
+					}
+				}
+			}
+		}
+	    }
         stage('Build'){
             agent{
                 label 'slave'
             }
             steps{
-		script{
-	    		env.VERSION=$(($RANDOM%10))
-			env.NAME=$(date -I)
-		}
 
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
                 echo "${env.BRANCH_NAME}"
