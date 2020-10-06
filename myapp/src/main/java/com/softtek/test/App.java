@@ -6,6 +6,6 @@ public class App
     public static void main( String[] args )
     {
         DateTime  date =  new DateTime();
-        System.out.println("This is the date from the demo: " + date);
+        System.out.println("Greetings from dev branch fellas: " + date);
     }
 }

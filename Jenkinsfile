@@ -4,7 +4,10 @@ pipeline{
         maven 'M3'
     }
     stages{
+<<<<<<< HEAD
 	stages{
+=======
+>>>>>>> 4d4dc318aa84dad35b48a4bef09b707ad8911f57
 	stage('Prepare'){
 		steps{
 			script{
@@ -28,6 +31,7 @@ pipeline{
                 label 'slave'
             }
             steps{
+
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
                 echo "${env.BRANCH_NAME}"
                 sh 'cd myapp && mvn clean package'
