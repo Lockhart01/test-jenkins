@@ -42,28 +42,25 @@ pipeline{
             when{
                 expression { env.BRANCH_NAME == "storagePlugin" }
             }
-            steps{
-	        	withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
-		            unstash 'app'
-		            sh 'ls -al'
-		            sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp'
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'https',
-                        nexusUrl: '192.168.100.12:8081',
-                        groupId: pom.groupId,
-                        version: pom.version,
-                        repository: 'myapp-plugin',
-                        credentialsId: 'nexus-creds',
-                        artifacts: [
-                            [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
-                            classifier: '',
-                            file: '${WORKSPACE/myapp-${NAME.tar.gz}}',
-                            type: 'tar.gz']
-                        ]
-
-                    );			
-                }	
+            steps{	        	
+		        unstash 'app'
+		        sh 'ls -al'
+		        sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp'
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'https',
+                    nexusUrl: '192.168.100.12:8081',
+                    groupId: '',
+                    version: "${env.BRANCH_NAME}-${NAME}",
+                    repository: 'myapp-plugin',
+                    credentialsId: 'nexus-creds',
+                    artifacts: [
+                        [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
+                        classifier: '',
+                        file: '${WORKSPACE/myapp-${NAME.tar.gz}}',
+                        type: 'tar.gz']
+                    ]
+                );				
 	        }
         }
     }
