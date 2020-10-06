@@ -8,10 +8,10 @@
   <name>myapp</name>
   <url>http://maven.apache.org</url>
   <distributionManagement>
-     <snapshotRepository>
+     <repository>
            <id>myapp-repo</id>
 	   <url>${URL}</url>
-     </snapshotRepository>
+     </repository>
   </distributionManagement>
   <dependencies>
     <dependency>
