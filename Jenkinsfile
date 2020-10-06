@@ -4,10 +4,9 @@ pipeline{
         maven 'M3'
     }
     stages{
-<<<<<<< HEAD
+
 	stages{
-=======
->>>>>>> 4d4dc318aa84dad35b48a4bef09b707ad8911f57
+
 	stage('Prepare'){
 		steps{
 			script{
