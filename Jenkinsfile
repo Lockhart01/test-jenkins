@@ -42,7 +42,7 @@ pipeline{
                 expression { env.BRANCH_NAME == "storagePom" }
             }
             steps{
-                sh 'mvn clean deploy -s ${WORKSPACE}/settings.xml '
+                sh 'cd myapp && mvn clean deploy -s ${WORKSPACE}/settings.xml '
             }
         }
         stage('storage'){
