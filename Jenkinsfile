@@ -34,7 +34,7 @@ pipeline{
                 stash includes: '**/target/*.jar', name: 'app' 
             }
         }
-        stage('dev only'){
+        stage('storagePom only'){
             agent{
                 label 'slave'
             }
@@ -42,8 +42,10 @@ pipeline{
                 expression { env.BRANCH_NAME == "storagePom" }
             }
             steps{
-	        sh 'env'
-                sh 'cd myapp && mvn clean deploy -s ${WORKSPACE}/settings.xml '
+	    	withCredentials([string(credentialsId: 'USER', variable: 'USER'), string(credentialsId: 'PASSWORD', variable: 'PASSWORD'), string(credentialsId: 'URL', variable: 'URL')]) {
+	        	sh 'env'
+                	sh 'cd myapp && mvn clean deploy -s ${WORKSPACE}/settings.xml '
+		}
             }
         }
         stage('storage'){
