@@ -48,7 +48,7 @@ pipeline{
 	        	withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
 		            unstash 'app'
 		            sh 'ls -al'
-		            sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp
+		            sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp'
                     nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'https',
