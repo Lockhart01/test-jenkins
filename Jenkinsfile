@@ -4,6 +4,25 @@ pipeline{
         maven 'M3'
     }
     stages{
+	stages{
+	stage('Prepare'){
+		steps{
+			script{
+				Random rnd = new Random()
+				env.VERSION= rnd.nextInt(10)
+				Date date = new Date()
+				env.NAME= date.format("yyyyMMdd")
+			}
+			
+		}
+		post{
+				always{
+					script{
+						currentBuild.displayName = "myapp-${NAME}"
+					}
+				}
+			}
+	    }
         stage('Build'){
             agent{
                 label 'slave'
@@ -15,22 +34,36 @@ pipeline{
                 stash includes: '**/target/*.jar', name: 'app' 
             }
         }
-        stage('dev only'){
+        stage('storagePlugin only'){
             agent{
                 label 'slave'
             }
             when{
-                expression { env.BRANCH_NAME == "dev" }
+                expression { env.BRANCH_NAME == "storagePlugin" }
             }
             steps{
-                sh 'echo "if you can see this, it means i was triggered from dev branch"'
-            }
-        }
-        stage('storage'){
-            steps{
-                unstash 'app'
-                archiveArtifacts artifacts: 'myapp/target/*.jar', followSymlinks: false
-            }
+	        	withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+		            unstash 'app'
+		            sh 'ls -al'
+		            sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'https',
+                        nexusUrl: '192.168.100.12:8081',
+                        groupId: pom.groupId,
+                        version: pom.version,
+                        repository: 'myapp-plugin',
+                        credentialsId: 'nexus-creds',
+                        artifacts: [
+                            [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
+                            classifier: '',
+                            file: '${WORKSPACE/myapp-${NAME.tar.gz}}',
+                            type: 'tar.gz']
+                        ]
+
+                    );			
+                }	
+	        }
         }
     }
 }
