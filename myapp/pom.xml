@@ -10,7 +10,7 @@
   <distributionManagement>
      <snapshotRepository>
            <id>myapp-repo</id>
-	   <url>http://192.168.100.12:8081/repository/myapp-repo/</url>
+	   <url>${URL}</url>
      </snapshotRepository>
   </distributionManagement>
   <dependencies>
