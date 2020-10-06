@@ -3,8 +3,6 @@ pipeline{
     tools{
         maven 'M3'
     }
-    stages{
-
 	stages{
 
 	stage('Prepare'){
