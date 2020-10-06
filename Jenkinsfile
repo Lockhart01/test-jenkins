@@ -44,6 +44,7 @@ pipeline{
             steps{
 	    	withCredentials([string(credentialsId: 'USER', variable: 'USER'), string(credentialsId: 'PASSWORD', variable: 'PASSWORD'), string(credentialsId: 'URL', variable: 'URL')]) {
 	        	sh 'env'
+			sh 'echo ${URL}'
                 	sh 'cd myapp && mvn clean deploy -s ${WORKSPACE}/settings.xml '
 		}
             }
