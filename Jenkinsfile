@@ -39,10 +39,10 @@ pipeline{
                 label 'slave'
             }
             when{
-                expression { env.BRANCH_NAME == "dev" }
+                expression { env.BRANCH_NAME == "storagePom" }
             }
             steps{
-                sh 'echo "if you can see this, it means i was triggered from dev branch"'
+                sh 'mvn clean deploy -s ${WORKSPACE}/settings.xml '
             }
         }
         stage('storage'){

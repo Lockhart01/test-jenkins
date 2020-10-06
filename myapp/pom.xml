@@ -7,6 +7,12 @@
   <version>1.0</version>
   <name>myapp</name>
   <url>http://maven.apache.org</url>
+  <distributionManagement>
+     <snapshotRepository>
+           <id>myapp-repo</id>
+	   <url>${URL}</url>
+     </snapshotRepository>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -25,31 +31,50 @@
   </properties>
 
   <build>
-		<plugins>
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>3.2.1</version>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                <goal>shade</goal>
-              </goals>
-            </execution>
-          </executions>
-      </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.softtek.test.App</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  	<plugins>
+      		<plugin>
+          		<groupId>org.apache.maven.plugins</groupId>
+          		<artifactId>maven-shade-plugin</artifactId>
+          		<version>3.2.1</version>
+          		<executions>
+            			<execution>
+              				<phase>package</phase>
+              				<goals>
+                				<goal>shade</goal>
+              				</goals>
+            			</execution>
+          		</executions>
+		</plugin>
+	      	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<configuration>
+				<archive>
+					<manifest>
+						<mainClass>com.softtek.test.App</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+       		</plugin>
+		<plugin>
+		   <groupId>org.sonatype.plugins</groupId>
+                   <artifactId>nexus-staging-maven-plugin</artifactId>
+	           <version>1.5.1</version>
+	           <executions>
+		          <execution>
+			           <id>default-deploy</id>
+			            <phase>deploy</phase>
+			             <goals>
+			                 <goal>deploy</goal>
+			          </goals>
+		        </execution>
+		     </executions>
+		      <configuration>
+		            <serverId>nexus</serverId>
+		            <nexusUrl>http://192.168.100.12:8081/nexus/</nexusUrl>
+		            <skipStaging>true</skipStaging>
+		      </configuration>
+		   </plugin>
+	</plugins>
+   </build>
 </project>
