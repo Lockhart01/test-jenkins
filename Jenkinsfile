@@ -48,7 +48,7 @@ pipeline{
                 sh 'ls -l'
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
-                    protocol: 'https',
+                    protocol: 'http',
                     nexusUrl: '10.5.0.9:8081',
                     groupId: '',
                     version: "${env.BRANCH_NAME}-${NAME}",
