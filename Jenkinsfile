@@ -47,12 +47,12 @@ pipeline{
 		        sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp'
                 sh 'ls -l'
                 nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '10.5.0.9:8081',
+                    nexusVersion: "nexus3",
+                    protocol: "http",
+                    nexusUrl: "10.5.0.9:8081",
                     groupId: '',
                     version: "${env.BRANCH_NAME}-${NAME}",
-                    repository: 'myapp-plugin',
+                    repository: "myapp-plugin",
                     credentialsId: "nexus-creds",
                     artifacts: [
                         [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
