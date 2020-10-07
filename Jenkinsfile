@@ -53,7 +53,7 @@ pipeline{
                     groupId: '',
                     version: "${env.BRANCH_NAME}-${NAME}",
                     repository: 'myapp-plugin',
-                    credentialsId: 'nexus-creds',
+                    credentialsId: "nexus-creds",
                     artifacts: [
                         [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
                         classifier: '',
