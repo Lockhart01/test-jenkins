@@ -55,7 +55,7 @@ pipeline{
                     repository: "myapp-plugin",
                     credentialsId: "nexus-creds",
                     artifacts: [
-                        [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
+                        [artifactId: "myapp-${env.BRANCH_NAME}",
                         classifier: '',
                         file: "${WORKSPACE}/myapp-${NAME}.tar.gz",
                         type: 'tar.gz']
