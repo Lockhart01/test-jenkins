@@ -44,8 +44,8 @@ pipeline{
             }
             steps{	        	
 		        unstash 'app'
-		        sh 'ls -al'
 		        sh 'tar -czvf myapp-${NAME}.tar.gz ${WORKSPACE}/myapp'
+                sh 'ls -l'
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'https',
