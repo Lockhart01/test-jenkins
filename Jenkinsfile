@@ -49,7 +49,7 @@ pipeline{
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'https',
-                    nexusUrl: '192.168.100.12:8081',
+                    nexusUrl: '10.5.0.9:8081',
                     groupId: '',
                     version: "${env.BRANCH_NAME}-${NAME}",
                     repository: 'myapp-plugin',
