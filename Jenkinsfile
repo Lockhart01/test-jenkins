@@ -51,7 +51,7 @@ pipeline{
                     protocol: "http",
                     nexusUrl: "10.5.0.9:8081",
                     groupId: '',
-                    version: "myapp-${NAME}",
+                    version: "2",
                     repository: "myapp-plugin",
                     credentialsId: "nexus-creds",
                     artifacts: [
