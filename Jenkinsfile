@@ -57,7 +57,7 @@ pipeline{
                     artifacts: [
                         [artifactId: "myapp-${env.BRANCH_NAME}-${NAME}",
                         classifier: '',
-                        file: '${WORKSPACE/myapp-${NAME}.tar.gz}',
+                        file: '${WORKSPACE}/myapp-${NAME}.tar.gz',
                         type: 'tar.gz']
                     ]
                 );				
