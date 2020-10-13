@@ -1,12 +1,11 @@
 pipeline{
     agent any
-    tools{
-        maven 'M3'
-    }
     stages{
         stage('Build'){
             agent{
-                label 'slave'
+                docker{
+                    image 'maven:3-alphine'
+                }
             }
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
@@ -15,15 +14,17 @@ pipeline{
                 stash includes: '**/target/*.jar', name: 'app' 
             }
         }
-        stage('dev only'){
+        stage('Build #2'){
             agent{
-                label 'slave'
-            }
-            when{
-                expression { env.BRANCH_NAME == "dev" }
+                docker{
+                    image 'maven:3-alphine'
+                    args '-v m2:/root/.m2'
+                }
             }
             steps{
-                sh 'echo "if you can see this, it means i was triggered from dev branch"'
+                checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
+                echo "${env.BRANCH_NAME}"
+                sh 'cd myapp && mvn clean package'
             }
         }
         stage('storage'){
