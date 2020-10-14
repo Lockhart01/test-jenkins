@@ -5,6 +5,7 @@ pipeline{
             agent{
                 docker{
                     image 'maven:3-alphine'
+                    label 'node1'
                 }
             }
             steps{
@@ -19,6 +20,7 @@ pipeline{
                 docker{
                     image 'maven:3-alphine'
                     args '-v m2:/root/.m2'
+                    label 'node1'
                 }
             }
             steps{
