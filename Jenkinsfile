@@ -4,7 +4,7 @@ pipeline{
         stage('Build'){
             agent{
                 docker{
-                    image 'maven:3.5.2-alpine'
+                    image 'maven'
                     label 'node1'
                 }
             }
@@ -18,7 +18,7 @@ pipeline{
         stage('Build #2'){
             agent{
                 docker{
-                    image 'maven:3.5.2-alpine'
+                    image 'maven'
                     args '-v m2:/root/.m2'
                     label 'node1'
                 }
