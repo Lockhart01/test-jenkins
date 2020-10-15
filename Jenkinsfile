@@ -19,7 +19,7 @@ pipeline{
             agent{
                 docker{
                     image 'maven:3.5.2-jdk-7-alpine'
-                    args '-v m2:/root/.m2'
+                    args '-v $HOME/.m2:/root/.m2'
                     label 'node1'
                 }
             }
