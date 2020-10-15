@@ -4,7 +4,7 @@
   <groupId>com.softtek.test</groupId>
   <artifactId>myapp</artifactId>
   <name>myapp</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.${VERSION}</version>
   <url>http://maven.apache.org</url>
   <build>
     <plugins>
@@ -40,4 +40,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <properties>
+    <jar.finalName>${project.name}-${NAME}</jar.finalName>
+  </properties>
 </project>
