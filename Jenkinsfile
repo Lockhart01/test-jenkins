@@ -12,7 +12,7 @@ pipeline{
 		post{
 				always{
 					script{
-						currentBuild.displayName = "myapp-${DATE}"
+						currentBuild.displayName = "todays-fortune-${DATE}"
 					}
 				}
 			}
