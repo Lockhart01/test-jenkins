@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        JAVA_TOOL_OPTIONS = '-Duser.home=/var/maven'
+        JAVA_TOOL_OPTIONS = '-Duser.home=/tmp'
     }    
     stages{
         stage('Build'){
@@ -22,7 +22,7 @@ pipeline{
             agent{
                 docker{
                     image 'maven:3.5.2-jdk-7-alpine'
-                    args '-v m2:/var/maven'
+                    args '-v m2:/tmp'
                     label 'node1'
                 }
             }
