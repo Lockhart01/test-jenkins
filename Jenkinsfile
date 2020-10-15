@@ -25,7 +25,7 @@ pipeline{
                 }
             }
             steps{
-                sh 'echo $(fortune) >> output.txt'
+                sh 'echo $(fortune) > output.txt'
                 stash includes: 'output.txt', name: 'file'
                 
             }
