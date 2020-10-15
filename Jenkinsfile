@@ -25,8 +25,15 @@ pipeline{
                 }
             }
             steps{
-                sh 'echo $(fortune|cowsay)'
+                sh 'echo $(fortune|cowsay) >> output.txt'
+                stash includes: 'output.txt', name: 'file'
                 
+            }
+        }
+        stage('storage'){
+            steps{
+                unstash 'file'
+                archiveArtifacts artifacts: 'output.txt', followSymlinks: false
             }
         }
        
