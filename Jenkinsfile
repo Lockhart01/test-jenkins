@@ -1,6 +1,8 @@
 pipeline{
     agent any
-    
+    environment{
+        JAVA_TOOL_OPTIONS = '-Duser.home=/var/maven'
+    }    
     stages{
         stage('Build'){
             agent{
