@@ -11,7 +11,7 @@ pipeline{
 				Random rnd = new Random()
 				env.VERSION= rnd.nextInt(10)
 				Date date = new Date()
-				env.NAME= date.format("yyyyMMdd")
+				env.NAME= date.format("yyyy-MM-dd")
 			}
 			
 		}
@@ -24,9 +24,6 @@ pipeline{
 			}
 	    }
         stage('Build'){
-            agent{
-                label 'slave'
-            }
             steps{
 
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
@@ -36,9 +33,6 @@ pipeline{
             }
         }
         stage('storagePlugin only'){
-            agent{
-                label 'slave'
-            }
             when{
                 expression { env.BRANCH_NAME == "storagePlugin" }
             }
@@ -51,11 +45,11 @@ pipeline{
                     protocol: "http",
                     nexusUrl: "10.5.0.9:8081",
                     groupId: '',
-                    version: "2",
+		    version: "${NAME}",
                     repository: "myapp-plugin",
                     credentialsId: "nexus-creds",
                     artifacts: [
-                        [artifactId: "1",
+                        [artifactId: "myapp",
                         classifier: '',
                         file: "${WORKSPACE}/myapp-${NAME}.tar.gz",
                         type: 'tar.gz']
