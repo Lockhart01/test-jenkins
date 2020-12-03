@@ -29,9 +29,6 @@ pipeline{
                 checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'],[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Lockhart01/test-jenkins']]])
                 echo "${env.BRANCH_NAME}"
                 sh 'cd myapp && mvn clean package'
-		script{
-			  env.VERSION = sh(script: 'find ./myapp/target -name "*.jar" | cut -d"/" -f4 | cut -d"." -f1', , returnStdout: true).trim()
-		}  
                 stash includes: '**/target/*.jar', name: 'app' 
             }
         }
@@ -48,7 +45,7 @@ pipeline{
                     protocol: "http",
                     nexusUrl: "10.5.0.9:8081",
                     groupId: '',
-		    version: "${VERSION}",
+		    version: "${NAME}",
                     repository: "myapp-plugin",
                     credentialsId: "nexus-creds",
                     artifacts: [
